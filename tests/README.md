@@ -16,8 +16,17 @@ End-to-end tests for MatchZy Auto Tournament using Playwright.
 
 ## Running Tests
 
-### Run all tests
+### Run all tests (automated with Docker Compose)
 ```bash
+# Fully automated: spins up Docker Compose with PostgreSQL, runs tests, cleans up
+yarn test:all
+```
+
+### Run tests manually (requires server and database running)
+```bash
+# Make sure PostgreSQL is running: yarn db
+# Make sure server is running: yarn start
+# Then run tests:
 yarn test:e2e
 ```
 
