@@ -62,15 +62,13 @@ test.describe('Servers Page', () => {
     
     // Fill in server details
     const serverName = `Test Server ${Date.now()}`;
-    await page.getByLabel(/name/i).fill(serverName);
-    await page.getByLabel(/host|address/i).fill('127.0.0.1');
-    await page.getByLabel(/port/i).fill('27015');
+    await page.getByLabel(/server name/i).fill(serverName);
+    await page.getByLabel(/host.*ip address/i).fill('127.0.0.1');
+    await page.getByLabel(/^port$/i).fill('27015');
     
-    // Optional: fill password if field exists
-    const passwordInput = page.getByLabel(/password/i).or(page.locator('input[type="password"]'));
-    if (await passwordInput.isVisible().catch(() => false)) {
-      await passwordInput.fill('test-password');
-    }
+    // Fill password
+    const passwordInput = page.getByLabel(/rcon password/i);
+    await passwordInput.fill('test-password');
     
     // Submit form
     const submitButton = modal.getByRole('button', { name: /add server/i });

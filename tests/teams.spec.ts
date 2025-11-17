@@ -60,7 +60,7 @@ test.describe('Teams Page', () => {
     
     // Fill in team details
     const teamName = `Test Team ${Date.now()}`;
-    await page.getByLabel(/name/i).fill(teamName);
+    await page.getByLabel(/team name/i).fill(teamName);
     
     // Optional: fill tag if field exists
     const tagInput = page.getByLabel(/tag/i).or(page.locator('input[placeholder*="tag" i]'));
