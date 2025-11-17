@@ -35,7 +35,7 @@ test.describe('Matches Page', () => {
     
     // Check for either matches list or empty state
     const matchesList = page.locator('text=/match|round|status/i');
-    const emptyState = page.locator('text=/no.*matches|haven't.*created|empty/i');
+    const emptyState = page.locator("text=/no.*matches|haven't.*created|empty/i");
     
     const hasMatches = await matchesList.first().isVisible().catch(() => false);
     const isEmpty = await emptyState.isVisible().catch(() => false);
