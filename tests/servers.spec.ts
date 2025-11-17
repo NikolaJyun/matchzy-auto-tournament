@@ -11,8 +11,8 @@ test.describe('Servers Page', () => {
     // Login before each test
     const apiToken = process.env.API_TOKEN || 'admin123';
     await page.goto('/login');
-    await page.getByLabel(/password|token/i).fill(apiToken);
-    await page.getByRole('button', { name: /login|sign in/i }).click();
+    await page.getByLabel(/api token/i).fill(apiToken);
+    await page.getByRole('button', { name: /sign in/i }).click();
     await expect(page).not.toHaveURL(/\/login/);
   });
 
@@ -73,7 +73,7 @@ test.describe('Servers Page', () => {
     }
     
     // Submit form
-    const submitButton = modal.getByRole('button', { name: /save|create|submit/i });
+    const submitButton = modal.getByRole('button', { name: /add server/i });
     await submitButton.click();
     
     // Modal should close
@@ -87,7 +87,7 @@ test.describe('Servers Page', () => {
     await page.goto('/servers');
     
     // Check for empty state message
-    const emptyState = page.getByText(/no.*servers|haven't.*created|empty/i);
+    const emptyState = page.getByText(/no servers registered/i);
     const isEmpty = await emptyState.isVisible().catch(() => false);
     
     if (isEmpty) {

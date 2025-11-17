@@ -11,8 +11,8 @@ test.describe('Settings Page', () => {
     // Login before each test
     const apiToken = process.env.API_TOKEN || 'admin123';
     await page.goto('/login');
-    await page.getByLabel(/password|token/i).fill(apiToken);
-    await page.getByRole('button', { name: /login|sign in/i }).click();
+    await page.getByLabel(/api token/i).fill(apiToken);
+    await page.getByRole('button', { name: /sign in/i }).click();
     await expect(page).not.toHaveURL(/\/login/);
   });
 
@@ -29,11 +29,11 @@ test.describe('Settings Page', () => {
     await expect(page.getByText(/settings|webhook|steam/i)).toBeVisible();
     
     // Check for webhook URL input
-    const webhookInput = page.getByLabel(/webhook.*url/i).or(page.locator('input[placeholder*="webhook" i]'));
+    const webhookInput = page.getByLabel(/webhook base url/i);
     await expect(webhookInput).toBeVisible();
     
     // Check for Steam API key input
-    const steamInput = page.getByLabel(/steam.*api.*key/i).or(page.locator('input[placeholder*="steam" i]'));
+    const steamInput = page.getByLabel(/steam web api key/i);
     await expect(steamInput).toBeVisible();
   });
 
@@ -41,7 +41,7 @@ test.describe('Settings Page', () => {
     await page.goto('/settings');
     
     // Find webhook URL input
-    const webhookInput = page.getByLabel(/webhook.*url/i).or(page.locator('input[placeholder*="webhook" i]'));
+    const webhookInput = page.getByLabel(/webhook base url/i);
     await expect(webhookInput).toBeVisible();
     
     // Clear and enter new webhook URL
@@ -50,7 +50,7 @@ test.describe('Settings Page', () => {
     await webhookInput.fill(testWebhookUrl);
     
     // Find and click save button
-    const saveButton = page.getByRole('button', { name: /save|update/i });
+    const saveButton = page.getByRole('button', { name: /save settings/i });
     await saveButton.click();
     
     // Wait for success message or check that value is saved
@@ -65,7 +65,7 @@ test.describe('Settings Page', () => {
     await page.goto('/settings');
     
     // Find Steam API key input
-    const steamInput = page.getByLabel(/steam.*api.*key/i).or(page.locator('input[placeholder*="steam" i]'));
+    const steamInput = page.getByLabel(/steam api key/i);
     await expect(steamInput).toBeVisible();
     
     // Clear and enter new Steam API key
@@ -74,7 +74,7 @@ test.describe('Settings Page', () => {
     await steamInput.fill(testSteamKey);
     
     // Find and click save button
-    const saveButton = page.getByRole('button', { name: /save|update/i });
+    const saveButton = page.getByRole('button', { name: /save settings/i });
     await saveButton.click();
     
     // Wait for save to complete
@@ -89,7 +89,7 @@ test.describe('Settings Page', () => {
     await page.goto('/settings');
     
     // Find webhook URL input
-    const webhookInput = page.getByLabel(/webhook.*url/i).or(page.locator('input[placeholder*="webhook" i]'));
+    const webhookInput = page.getByLabel(/webhook base url/i);
     await expect(webhookInput).toBeVisible();
     
     // Clear the input

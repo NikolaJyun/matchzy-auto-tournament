@@ -11,8 +11,8 @@ test.describe('Dashboard Page', () => {
     // Login before each test
     const apiToken = process.env.API_TOKEN || 'admin123';
     await page.goto('/login');
-    await page.getByLabel(/password|token/i).fill(apiToken);
-    await page.getByRole('button', { name: /login|sign in/i }).click();
+    await page.getByLabel(/api token/i).fill(apiToken);
+    await page.getByRole('button', { name: /sign in/i }).click();
     await expect(page).not.toHaveURL(/\/login/);
   });
 
@@ -39,9 +39,9 @@ test.describe('Dashboard Page', () => {
   test('should navigate to teams page from dashboard', { tag: ['@dashboard', '@navigation'] }, async ({ page }) => {
     await page.goto('/');
     
-    // Click on Teams card
-    const teamsCard = page.locator('text=/teams/i').locator('..').locator('..').getByRole('button', { name: /open/i }).first();
-    await teamsCard.click();
+    // Click on Teams card (the card itself is clickable via onClick handler)
+    // Find the card by text and click it directly
+    await page.getByText(/teams/i).click();
     
     await expect(page).toHaveURL(/\/teams/);
   });
@@ -49,9 +49,8 @@ test.describe('Dashboard Page', () => {
   test('should navigate to servers page from dashboard', { tag: ['@dashboard', '@navigation'] }, async ({ page }) => {
     await page.goto('/');
     
-    // Click on Servers card
-    const serversCard = page.locator('text=/servers/i').locator('..').locator('..').getByRole('button', { name: /open/i }).first();
-    await serversCard.click();
+    // Click on Servers card (the card itself is clickable)
+    await page.getByText(/servers/i).click();
     
     await expect(page).toHaveURL(/\/servers/);
   });
@@ -59,9 +58,8 @@ test.describe('Dashboard Page', () => {
   test('should navigate to tournament page from dashboard', { tag: ['@dashboard', '@navigation'] }, async ({ page }) => {
     await page.goto('/');
     
-    // Click on Tournament card
-    const tournamentCard = page.locator('text=/tournament/i').locator('..').locator('..').getByRole('button', { name: /open/i }).first();
-    await tournamentCard.click();
+    // Click on Tournament card (the card itself is clickable)
+    await page.getByText(/tournament/i).click();
     
     await expect(page).toHaveURL(/\/tournament/);
   });
@@ -69,9 +67,8 @@ test.describe('Dashboard Page', () => {
   test('should navigate to settings page from dashboard', { tag: ['@dashboard', '@navigation'] }, async ({ page }) => {
     await page.goto('/');
     
-    // Click on Settings card
-    const settingsCard = page.locator('text=/settings/i').locator('..').locator('..').getByRole('button', { name: /open/i }).first();
-    await settingsCard.click();
+    // Click on Settings card (the card itself is clickable)
+    await page.getByText(/settings/i).click();
     
     await expect(page).toHaveURL(/\/settings/);
   });

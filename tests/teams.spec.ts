@@ -11,8 +11,8 @@ test.describe('Teams Page', () => {
     // Login before each test
     const apiToken = process.env.API_TOKEN || 'admin123';
     await page.goto('/login');
-    await page.getByLabel(/password|token/i).fill(apiToken);
-    await page.getByRole('button', { name: /login|sign in/i }).click();
+    await page.getByLabel(/api token/i).fill(apiToken);
+    await page.getByRole('button', { name: /sign in/i }).click();
     await expect(page).not.toHaveURL(/\/login/);
   });
 
@@ -69,7 +69,7 @@ test.describe('Teams Page', () => {
     }
     
     // Submit form
-    const submitButton = modal.getByRole('button', { name: /save|create|submit/i });
+    const submitButton = modal.getByRole('button', { name: /create team/i });
     await submitButton.click();
     
     // Modal should close
@@ -83,7 +83,7 @@ test.describe('Teams Page', () => {
     await page.goto('/teams');
     
     // Check for empty state message
-    const emptyState = page.getByText(/no.*teams|haven't.*created|empty/i);
+    const emptyState = page.getByText(/no teams yet/i);
     // This might not always be visible if teams exist, so we check conditionally
     const isEmpty = await emptyState.isVisible().catch(() => false);
     

@@ -11,8 +11,8 @@ test.describe('Bracket Page', () => {
     // Login before each test
     const apiToken = process.env.API_TOKEN || 'admin123';
     await page.goto('/login');
-    await page.getByLabel(/password|token/i).fill(apiToken);
-    await page.getByRole('button', { name: /login|sign in/i }).click();
+    await page.getByLabel(/api token/i).fill(apiToken);
+    await page.getByRole('button', { name: /sign in/i }).click();
     await expect(page).not.toHaveURL(/\/login/);
   });
 
