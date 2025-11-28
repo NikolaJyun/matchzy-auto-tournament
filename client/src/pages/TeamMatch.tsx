@@ -83,14 +83,13 @@ export default function TeamMatch() {
   // Get match format from match data (fallback to 'bo1' if not available)
   const matchFormat = (match?.matchFormat as 'bo1' | 'bo3' | 'bo5') || 'bo1';
 
-  // Check if veto is completed based on match's veto status
+  // Derive veto completed status from match data (avoid setState in effect)
+  const vetoCompletedFromMatch = match?.veto?.status === 'completed';
+  
+  // Sync local state with match data when it changes
   useEffect(() => {
-    if (match?.veto?.status === 'completed') {
-      setVetoCompleted(true);
-    } else if (match?.veto?.status === 'in_progress' || match?.veto?.status === 'pending') {
-      setVetoCompleted(false);
-    }
-  }, [match?.veto?.status]);
+    setVetoCompleted(vetoCompletedFromMatch);
+  }, [vetoCompletedFromMatch]);
 
   // Set dynamic page title
   useEffect(() => {
